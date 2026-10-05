@@ -171,7 +171,7 @@ async function commit(params) {
   const questionPath = path.join(prefix, folderName, "README.md");
 
   // Separate file for the solution
-  const solutionFileName = `solution.${LANG_TO_EXTENSION[submission.lang]}`;
+  const solutionFileName = `${submission.timestamp}-${submission.statusDisplay.replace(/ /g, "_")}.${LANG_TO_EXTENSION[submission.lang]}`;
   const solutionPath = path.join(prefix, folderName, solutionFileName);
 
   const treeData = [
@@ -272,9 +272,7 @@ function addToSubmissions(params) {
     if (submissionTimestamp <= lastTimestamp) {
       return false;
     }
-    if (submission.statusDisplay !== "Accepted") {
-      continue;
-    }
+    
     const name = normalizeName(submission.title);
     const lang = submission.lang;
     if (!submissions_dict[name]) {
